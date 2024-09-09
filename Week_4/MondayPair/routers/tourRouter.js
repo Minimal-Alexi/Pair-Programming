@@ -15,18 +15,18 @@ router.use(express.json());
 // ROUTES
 
 // GET /tours
-router.get("/tours", getAllTours);
+router.get("", getAllTours);
 
 // POST /tours
-router.post("/tours", createTour);
+router.post("", createTour);
 
 // GET /tours/:tourId
-router.get("/tours/:tourId", getTourById);
+router.get("/:tourId", getTourById);
 
 // PUT /tours/:tourId
-router.put("/tours/:tourId", updateTour);
+router.put("/:tourId", updateTour);
 
 // DELETE /tours/:tourId
-router.delete("/tours/:tourId", deleteTour);
+router.delete("/:tourId", deleteTour);
 
 module.exports = router;
