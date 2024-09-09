@@ -4,6 +4,9 @@ const tourRouter = require ('./routers/tourRouter')
 const userRouter = require ('./routers/userRouter')
 
 // Middleware to parse JSON
+const morgan = require('morgan');
+app.use(morgan('tiny'));
+
 app.use(express.json());
 
 app.use("/api/tours", tourRouter)

@@ -14,19 +14,19 @@ router.use(express.json());
 
 // ROUTES
 
-// GET /tours
+// GET /users
 router.get("/", getAllUsers);
 
-// POST /tours
+// POST /users
 router.post("/", createUser);
 
-// GET /tours/:userId
+// GET /users/:userId
 router.get("/:userId", getUserById);
 
-// PUT /tours/:userId
+// PUT /users/:userId
 router.put("/:userId", updateUser);
 
-// DELETE /tours/:userId
+// DELETE /users/:userId
 router.delete("/:userId", deleteUser);
 
 module.exports = router;
