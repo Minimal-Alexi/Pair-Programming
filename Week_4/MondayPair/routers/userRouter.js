@@ -1,3 +1,5 @@
+import auth from '../middleware/auth.js';
+
 const express = require('express');
 const router = express.Router();
 
@@ -17,11 +19,13 @@ router.use(express.json());
 // GET /users
 router.get("/", getAllUsers);
 
-// POST /users
-router.post("/", createUser);
-
 // GET /users/:userId
 router.get("/:userId", getUserById);
+
+router.use(auth);
+
+// POST /users
+router.post("/", createUser);
 
 // PUT /users/:userId
 router.put("/:userId", updateUser);

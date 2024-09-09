@@ -1,3 +1,5 @@
+import auth from '../middleware/auth.js';
+
 const express = require('express');
 const router = express.Router();
 
@@ -15,13 +17,15 @@ router.use(express.json());
 // ROUTES
 
 // GET /tours
-router.get("", getAllTours);
+router.get("/", getAllTours);
 
-// POST /tours
-router.post("", createTour);
+router.use(auth);
 
 // GET /tours/:tourId
 router.get("/:tourId", getTourById);
+
+// POST /tours
+router.post("/", createTour);
 
 // PUT /tours/:tourId
 router.put("/:tourId", updateTour);
