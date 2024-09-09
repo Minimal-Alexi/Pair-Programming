@@ -20,13 +20,13 @@ router.get("/", getAllUsers);
 // POST /tours
 router.post("/", createUser);
 
-// GET /tours/:tourId
-router.get("/:tourId", getUserById);
+// GET /tours/:userId
+router.get("/:userId", getUserById);
 
-// PUT /tours/:tourId
-router.put("/:tourId", updateUser);
+// PUT /tours/:userId
+router.put("/:userId", updateUser);
 
-// DELETE /tours/:tourId
-router.delete("/:tourId", deleteUser);
+// DELETE /tours/:userId
+router.delete("/:userId", deleteUser);
 
 module.exports = router;
