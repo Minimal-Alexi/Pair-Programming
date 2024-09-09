@@ -19,10 +19,10 @@ router.use(express.json());
 // GET /users
 router.get("/", getAllUsers);
 
+router.use(auth);
+
 // GET /users/:userId
 router.get("/:userId", getUserById);
-
-router.use(auth);
 
 // POST /users
 router.post("/", createUser);
