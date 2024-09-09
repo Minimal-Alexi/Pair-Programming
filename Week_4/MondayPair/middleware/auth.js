@@ -5,4 +5,4 @@ const auth = (req, res, next) => {
         res.send('No auth')
     }
 }
-export default auth;
+module.exports = auth;
