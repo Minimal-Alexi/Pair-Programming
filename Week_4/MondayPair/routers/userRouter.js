@@ -1,3 +1,5 @@
+const auth = require('../middleware/auth');
+
 const express = require('express');
 const router = express.Router();
 
@@ -14,19 +16,21 @@ router.use(express.json());
 
 // ROUTES
 
-// GET /tours
+// GET /users
 router.get("/", getAllUsers);
 
-// POST /tours
-router.post("/", createUser);
+router.use(auth);
 
-// GET /tours/:userId
+// GET /users/:userId
 router.get("/:userId", getUserById);
 
-// PUT /tours/:userId
+// POST /users
+router.post("/", createUser);
+
+// PUT /users/:userId
 router.put("/:userId", updateUser);
 
-// DELETE /tours/:userId
+// DELETE /users/:userId
 router.delete("/:userId", deleteUser);
 
 module.exports = router;
