@@ -27,7 +27,7 @@ const Tour = ({ item, onDelete }) => {
           <p>{item.duration} days</p>
         </div>
       </div>
-      <button onClick={handleDelete} className="delete-button">
+      <button onClick={handleDelete} className="btn">
         Delete
       </button>
     </article>

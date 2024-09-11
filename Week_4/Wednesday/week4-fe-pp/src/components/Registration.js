@@ -14,26 +14,33 @@ const Registration = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={submit}>
-        <input
-          value={nameData}
-          type="text"
-          onChange={(e) => setName(e.target.value)}
-        ></input>
-        <input
-          value={passwordData}
-          type="text"
-          onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <input
-          value={emailData}
-          type="text"
-          onChange={(e) => setEmail(e.target.value)}
-        ></input>
-        <button type="submit">Submit registration</button>
-      </form>
-    </div>
+    <section className="section">
+      <div>
+        <form onSubmit={submit}>
+          <input
+            value={nameData}
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your name"
+          ></input>
+          <input
+            value={passwordData}
+            type="text"
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+          ></input>
+          <input
+            value={emailData}
+            type="text"
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+          ></input>
+          <button type="submit" className="btn">
+            Submit registration
+          </button>
+        </form>
+      </div>
+    </section>
   );
 };
 
