@@ -3,7 +3,14 @@ import Tour from "./Tour.js";
 import { useState } from "react";
 
 const Tours = () => {
-  const [toursData, setServicesData] = useState(tours);
+  const [toursData, setToursData] = useState(tours);
+
+  const handleDeleteItem = (tourID) => {
+    // Filter out the item with the specified ID and update the state
+    const updatedTours = toursData.filter((tour) => tour.id !== tourID);
+    setToursData((toursData) => updatedTours);
+  };
+
   return (
     <section className="section" id="tour">
       <div className="section-title">
@@ -12,8 +19,14 @@ const Tours = () => {
         </h2>
       </div>
       <div className="section-center featured-center">
-        {tours.map((toursData) => {
-          return <Tour {...toursData} key={toursData.id} />;
+        {toursData.map((toursData) => {
+          return (
+            <Tour
+              item={toursData}
+              key={toursData.id}
+              onDelete={handleDeleteItem}
+            />
+          );
         })}
       </div>
     </section>
