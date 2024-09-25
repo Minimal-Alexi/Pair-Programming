@@ -1,27 +1,22 @@
 import useLogin from "../hooks/useLogin";
+import useField from "../hooks/useField";
 
 const LoginComponent = ({ setIsAuthenticated }) => {
   const { email, setEmail, password, setPassword, handleLogin } = useLogin(setIsAuthenticated);
+  const emailInput = useField('text',email,setEmail);
+  const passwordInput = useField('password',password,setPassword);
 
   return (
     <div>
       <h2>Login</h2>
       <label>
-      email:
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        email:
+        <input {...emailInput}/>
       </label>
       <br />
       <label>
         Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <input {...passwordInput}/>
       </label>
       <br />
       <button onClick={handleLogin}>Log In</button>
