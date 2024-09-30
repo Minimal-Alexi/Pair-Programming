@@ -11,7 +11,9 @@ import AddJobPage from "./pages/AddJobPage";
 import Navbar from "./components/Navbar";
 import NotFoundPage from "./pages/NotFoundPage";
 import JobPage from "./pages/JobPage";
-import EditJobPage from "./pages/EditJobPage"
+import EditJobPage from "./pages/EditJobPage";
+import SignUp from "./pages/Signup";
+import LogIn from "./pages/Login";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -20,9 +22,11 @@ const App = () => {
     <div className="App">
       <JobProvider>
         <BrowserRouter>
-          <Navbar isAuthenticated={isAuthenticated}/>
+          <Navbar isAuthenticated={isAuthenticated} />
           <div className="content">
             <Routes>
+              <Route path="/signup" element={<SignUp setIsAuthenticated={setIsAuthenticated} />} />
+              <Route path="/login" element={<LogIn setIsAuthenticated={setIsAuthenticated} />} />
               <Route path="/" element={<Home />} />
               <Route path="/:id" element={<JobPage />} />
               <Route path="/edit-job/:id" element={<EditJobPage />} />

@@ -1,32 +1,45 @@
-import useField from "../hooks/useField";
+import { useState } from "react";
 import useSignup from "../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
+import useField from '../hooks/useField';
 
-const Signup = () => {
+const Signup = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
-  const name = useField("text");  
-  const email = useField("email");
-  const password = useField("password");
-  const phoneNumber = useField("text");
-  const gender = useField("text");
-  const dateOfBirth = useField("date");
-  const membershipStatus = useField("text");
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [gender, setGender] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [membershipStatus, setMembershipStatus] = useState('');
+
+  const nameField = useField("text", name, setName);
+  const emailField = useField("email", email, setEmail);
+  const passwordField = useField("password", password, setPassword);
+  const phoneNumberField = useField("text", phoneNumber, setPhoneNumber);
+  const genderField = useField("text", gender, setGender);
+  const dateOfBirthField = useField("date", dateOfBirth, setDateOfBirth);
+  const membershipStatusField = useField("text", membershipStatus, setMembershipStatus);
+
+
 
   const { signup, error } = useSignup("/api/users/signup");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     await signup({
-      email: email.value,
-      password: password.value,
-      name: name.value,
-      phone_number: phoneNumber.value,
-      gender: gender.value,
-      date_of_birth: dateOfBirth.value,
-      membership_status: membershipStatus.value,
+      email: email,
+      password: password,
+      name: name,
+      phone_number: phoneNumber,
+      gender: gender,
+      date_of_birth: dateOfBirth,
+      membership_status: membershipStatus,
     });
     if (!error) {
       console.log("success");
+      setIsAuthenticated(true);
       navigate("/");
     }
   };
@@ -36,19 +49,19 @@ const Signup = () => {
       <h2>Sign Up</h2>
       <form onSubmit={handleFormSubmit}>
         <label>Name:</label>
-        <input {...name} />
+        <input {...nameField} />
         <label>Email address:</label>
-        <input {...email} />
+        <input {...emailField} />
         <label>Password:</label>
-        <input {...password} />
+        <input {...passwordField} />
         <label>Phone Number:</label>
-        <input {...phoneNumber} />
+        <input {...phoneNumberField} />
         <label>Gender:</label>
-        <input {...gender} />
+        <input {...genderField} />
         <label>Date of Birth:</label>
-        <input {...dateOfBirth} />
+        <input {...dateOfBirthField} />
         <label>Membership Status:</label>
-        <input {...membershipStatus} />
+        <input {...membershipStatusField} />
         <button>Sign up</button>
       </form>
     </div>
