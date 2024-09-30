@@ -1,9 +1,64 @@
+import { useState } from "react";
+import useField from '../hooks/useField';
+
 const AddJobPage = () => {
+
+  const [title, setTitle] = useState('');
+  const [type, setType] = useState('');
+  const [description, setDescription] = useState('');
+  const [name, setName] = useState('');
+  const [companyEmail, setCompanyEmail] = useState('');
+  const [companyPhone, setCompanyPhone] = useState('');
+
+  const titleField = useField('text', title, setTitle);
+  const typeField = useField('select', type, setType);
+  const descriptionField = useField('text', description, setDescription);
+  const nameField = useField('text', name, setName);
+  const companyEmailField = useField('text', companyEmail, setCompanyEmail);
+  const companyPhoneField = useField('text', companyPhone, setCompanyPhone);
   
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     console.log("submitForm called");
+
+    if (!title || !type || !description || !name || !companyEmail || !companyPhone) {
+      console.log('Fill all the fields');
+      return;
+    }
+
+    const company = 
+    {
+      name,
+      contactEmail : companyEmail,
+      contactPhone : companyPhone,
+    }
+
+    const job = {
+      title,
+      type,
+      description,
+      company,
+    }
    
+    const response = await fetch('/api/jobs', {
+      method: 'POST',
+      body: JSON.stringify(job),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      console.log('Error while creating job')
+    } else {
+      setTitle('');
+      setType('');
+      setDescription('');
+      setName('');
+      setCompanyEmail('');
+      setCompanyPhone('');
+    }
+    console.log(response);
   };
 
   return (
@@ -12,12 +67,11 @@ const AddJobPage = () => {
       <form onSubmit={submitForm}>
         <label>Job title:</label>
         <input
-          type="text"
+          {...titleField}
           required
-          value=""
         />
         <label>Job type:</label>
-        <select >
+        <select {...typeField} required>
           <option value="Full-Time">Full-Time</option>
           <option value="Part-Time">Part-Time</option>
           <option value="Remote">Remote</option>
@@ -26,27 +80,24 @@ const AddJobPage = () => {
 
         <label>Job Description:</label>
         <textarea
+          {...descriptionField}
           required
-          value=""
 
         ></textarea>
         <label>Company Name:</label>
         <input
-          type="text"
+          {...nameField}
           required
-          value=""
         />
         <label>Contact Email:</label>
         <input
-          type="text"
+          {...companyEmailField}
           required
-          value=""
         />
         <label>Contact Phone:</label>
         <input
-          type="text"
+          {...companyPhoneField}
           required
-          value=""
         />
         <button>Add Job</button>
       </form>
