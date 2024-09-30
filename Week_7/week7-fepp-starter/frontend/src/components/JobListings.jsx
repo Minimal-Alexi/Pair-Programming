@@ -1,42 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import JobListing from "./JobListing";
+import { jobContext } from "../contexts/jobContext";
 
 const JobListings = () => {
 
-  const [jobs, setJobs] = useState([]);
-
-  const jobFetching = async () => {
-    try {
-      const response = await fetch('/api/jobs',
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        },)
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data)
-        setJobs(data);
-        console.log(jobs);
-      }
-
-    }
-    catch (error) {
-      console.error(error);
-      console.error('Failed to fetch products');
-    }
-  }
-
-  useEffect(() => {
-    jobFetching();
-  }, [])
+  const { jobs ,handleDelete } = useContext(jobContext);
 
   return (
     <div className="job-list">
-      {jobs.map((job, index) => {
+      {jobs.map((job) => {
         return (
-          <JobListing key={index} job={job} />
+          <JobListing key={job._id} job={job} handleDelete={handleDelete}/>
         )
       })}
     </div>
