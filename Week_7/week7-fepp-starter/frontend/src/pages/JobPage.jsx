@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { jobContext } from '../contexts/jobContext';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import JobListing from "../components/JobListing";
 
 const job = () => {
     const [jobs, setJobs] = useState([]);
     const { id } = useParams();
+    const { handleDelete } = useContext(jobContext);
     const jobFetching = async () => {
         try {
             const response = await fetch(`/api/jobs/${id}`, {
@@ -31,7 +33,7 @@ const job = () => {
       }
     return (
         <div className="job-list">
-            <JobListing key={jobs._id} job={jobs} />
+            <JobListing key={jobs._id} job={jobs} handleDelete={handleDelete} />
         </div>
     )
 }

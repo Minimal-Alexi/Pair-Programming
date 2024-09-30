@@ -72,6 +72,7 @@ const AddJobPage = () => {
         />
         <label>Job type:</label>
         <select {...typeField} required>
+          <option value="" defaultValue>Select job type</option>
           <option value="Full-Time">Full-Time</option>
           <option value="Part-Time">Part-Time</option>
           <option value="Remote">Remote</option>
