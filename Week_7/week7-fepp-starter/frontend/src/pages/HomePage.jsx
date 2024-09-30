@@ -1,9 +1,9 @@
 import JobListings from "../components/JobListings";
 
-const Home = () => {
+const Home = ({isAuthenticated}) => {
   return (
     <div className="home">
-      <JobListings  />
+      <JobListings  isAuthenticated={isAuthenticated}/>
     </div>
   );
 };

@@ -40,11 +40,16 @@ const AddJobPage = () => {
       company,
     }
    
+
+    const credentials = JSON.parse(localStorage.getItem("user"));
+    const jwt = credentials.token;
+    
     const response = await fetch('/api/jobs', {
       method: 'POST',
       body: JSON.stringify(job),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwt}`
       },
     });
 

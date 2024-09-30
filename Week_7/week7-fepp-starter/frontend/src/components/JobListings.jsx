@@ -2,7 +2,7 @@ import { useContext } from "react";
 import JobListing from "./JobListing";
 import { jobContext } from "../contexts/jobContext";
 
-const JobListings = () => {
+const JobListings = ({isAuthenticated}) => {
 
   const { jobs ,handleDelete } = useContext(jobContext);
 
@@ -10,7 +10,7 @@ const JobListings = () => {
     <div className="job-list">
       {jobs.map((job) => {
         return (
-          <JobListing key={job._id} job={job} handleDelete={handleDelete}/>
+          <JobListing key={job._id} job={job} handleDelete={handleDelete} isAuthenticated= {isAuthenticated}/>
         )
       })}
     </div>

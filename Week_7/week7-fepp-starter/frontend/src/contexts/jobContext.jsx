@@ -51,11 +51,14 @@ export const JobProvider  = ({ children }) => {
     const handleDelete = async (_id) => {
         try
         {
+          const credentials = JSON.parse(localStorage.getItem("user"));
+          const jwt = credentials.token;
           const response = await fetch(`/api/jobs/${_id}`,
             {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
               }
             },)
             if(response.ok)
@@ -71,7 +74,7 @@ export const JobProvider  = ({ children }) => {
 
     useEffect(() => {
       jobFetching();
-    }, [])
+    }, [jobs])
 
     return (
         <jobContext.Provider value={{ jobs, setJobs, jobFetching, handleDelete, jobFetchingbyID}}>

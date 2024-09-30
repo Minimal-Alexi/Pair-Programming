@@ -21,6 +21,7 @@ export default function useLogin(url) {
     
         // localStorage.setItem("token", user.token);
         localStorage.setItem("user", JSON.stringify(user));
+        console.log(localStorage.getItem("user"));
         setIsLoading(false);
       };
 

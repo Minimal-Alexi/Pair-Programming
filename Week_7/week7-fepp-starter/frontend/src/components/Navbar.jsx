@@ -6,9 +6,16 @@ const Navbar = ({ isAuthenticated }) => {
       <h1>Job Search</h1>
       <div className="links">
         <Link to={`/`}>Home</Link>
-        <Link to={`/add-job`}>Add job</Link>
-        <Link to={`/signup`}>Sign up</Link>
-        <Link to={`/login`}>Log in</Link>
+        {isAuthenticated ? (
+          <>
+            <Link to={`/add-job`}>Add job</Link>
+          </>
+        ) : (
+          <>
+            <Link to={`/signup`}>Sign up</Link>
+            <Link to={`/login`}>Log in</Link>
+          </>
+        )}
       </div>
     </nav>
   );
