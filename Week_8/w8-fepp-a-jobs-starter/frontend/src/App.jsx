@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-// import ThemeProvider from "./Context/ThemeProvider";
-// import AuthProvider from "./Context/AuthProvider";
+import ThemeProvider from "./Context/ThemeProvider";
+import AuthProvider from "./Context/AuthProvider";
 // import RouteGuard from "./components/RouteGuard";
 
 // pages & components
@@ -15,8 +15,8 @@ import Signup from "./pages/Signup";
 
 const App = () => {
   return (
-    // <AuthProvider>
-      // <ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
         <BrowserRouter>
           <div className="App">
             <Navbar />
@@ -33,8 +33,8 @@ const App = () => {
             </div>
           </div>
         </BrowserRouter>
-      // </ThemeProvider>
-    // </AuthProvider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 };
 

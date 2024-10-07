@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-// import { useContext } from "react";
-// import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
+import AuthContext from "../Context/AuthContext";
 
 const JobPage = () => {
   const navigate = useNavigate();
@@ -9,9 +9,9 @@ const JobPage = () => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const { token, isAuthenticated } = useContext(AuthContext); // Access Auth
-  const user = JSON.parse(localStorage.getItem("user"));
-  const token = user ? user.token : null;
+  const { token, isAuthenticated } = useContext(AuthContext); // Access Auth
+  // const user = JSON.parse(localStorage.getItem("user"));
+  // const token = user ? user.token : null;
 
   const deleteJob = async (id) => {
     try {
@@ -51,9 +51,9 @@ const JobPage = () => {
     fetchJob();
   }, [id]);
 
-  const onDeleteClick = (jobId) => {
+  const onDeleteClick = () => {
     const confirm = window.confirm(
-      "Are you sure you want to delete this listing?" + jobId
+      "Are you sure you want to delete this listing?" + id
     );
     if (!confirm) return;
 
@@ -63,9 +63,11 @@ const JobPage = () => {
       return navigate("/");
     }
 
-    deleteJob(jobId);
+    deleteJob(id);
   };
-
+  const onEditClick = () => {
+    navigate(`/edit-job/${id}`)
+  }
   return (
     <div className="job-preview">
       {loading ? (
@@ -81,14 +83,12 @@ const JobPage = () => {
           <p>Email: {job.company.contactEmail}</p>
           <p>Phone: {job.company.contactPhone}</p>
 
-          {/* {isAuthenticated && ( */}
-          <>
-            <button onClick={() => onDeleteClick(job._id)}>delete</button>
-            <button onClick={() => navigate(`/edit-job/${job._id}`)}>
-              edit
-            </button>
-          </>
-          {/* )} */}
+          {isAuthenticated && (
+            <>
+              <button onClick={onDeleteClick}>Delete</button>
+              <button onClick={onEditClick}>Edit</button>
+            </>
+          )}
         </>
       )}
     </div>
