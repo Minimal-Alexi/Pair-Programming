@@ -1,0 +1,398 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API Documentation",
+      "version": "1.0.0",
+      "description": "This is the API documentation for the Users, Tours, and TodoTasks."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:5000/api",
+        "description": "Local server"
+      }
+    ],
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "John Doe"
+            },
+            "email": {
+              "type": "string",
+              "example": "johndoe@example.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "password123"
+            }
+          },
+          "required": ["name", "email", "password"]
+        },
+        "Tour": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Tour of the World"
+            },
+            "info": {
+              "type": "string",
+              "example": "A great tour that takes you around the globe."
+            },
+            "image": {
+              "type": "string",
+              "example": "tour.jpg"
+            },
+            "price": {
+              "type": "string",
+              "example": "199.99"
+            }
+          },
+          "required": ["name", "info", "image", "price"]
+        },
+        "TodoTask": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "Complete project"
+            },
+            "description": {
+              "type": "string",
+              "example": "Finish the project by the end of the month."
+            },
+            "dueDate": {
+              "type": "string",
+              "format": "date",
+              "example": "2023-12-31"
+            },
+            "completed": {
+              "type": "boolean",
+              "example": false
+            },
+            "user_id": {
+              "type": "string",
+              "example": "60c72b2f9b1d8e34d8f5a2b3"
+            }
+          },
+          "required": ["title", "dueDate", "user_id"]
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "paths": {
+      "/users/signup": {
+        "post": {
+          "summary": "Register a new user",
+          "tags": ["User"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User registered successfully"
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          }
+        }
+      },
+      "/users/login": {
+        "post": {
+          "summary": "Login a user",
+          "tags": ["User"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User authenticated"
+            },
+            "400": {
+              "description": "Invalid credentials"
+            }
+          }
+        }
+      },
+      "/tours": {
+        "get": {
+          "summary": "Get all tours",
+          "tags": ["Tour"],
+          "responses": {
+            "200": {
+              "description": "A list of tours",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Tour"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new tour",
+          "tags": ["Tour"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tour"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Tour created"
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          }
+        }
+      },
+      "/tours/{tourId}": {
+        "get": {
+          "summary": "Get a specific tour",
+          "tags": ["Tour"],
+          "parameters": [
+            {
+              "name": "tourId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Tour details"
+            },
+            "404": {
+              "description": "Tour not found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a specific tour",
+          "tags": ["Tour"],
+          "parameters": [
+            {
+              "name": "tourId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tour"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Tour updated"
+            },
+            "404": {
+              "description": "Tour not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a specific tour",
+          "tags": ["Tour"],
+          "parameters": [
+            {
+              "name": "tourId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Tour deleted"
+            },
+            "404": {
+              "description": "Tour not found"
+            }
+          }
+        }
+      },
+      "/todoTasks": {
+        "get": {
+          "summary": "Get all TodoTasks",
+          "tags": ["TodoTask"],
+          "responses": {
+            "200": {
+              "description": "A list of todo tasks",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/TodoTask"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Add a new TodoTask",
+          "tags": ["TodoTask"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TodoTask"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "TodoTask created"
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          }
+        }
+      },
+      "/todoTasks/{id}": {
+        "get": {
+          "summary": "Get a specific TodoTask",
+          "tags": ["TodoTask"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "TodoTask details"
+            },
+            "404": {
+              "description": "TodoTask not found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a specific TodoTask",
+          "tags": ["TodoTask"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TodoTask"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "TodoTask updated"
+            },
+            "404": {
+              "description": "TodoTask not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a specific TodoTask",
+          "tags": ["TodoTask"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "TodoTask deleted"
+            },
+            "404": {
+              "description": "TodoTask not found"
+            }
+          }
+        }
+      }
+    }
+  }
+  
